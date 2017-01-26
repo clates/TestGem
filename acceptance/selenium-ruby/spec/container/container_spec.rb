@@ -10,11 +10,9 @@ require 'applet-test-helpers/mongo/mongo-utility'
 require 'search-page'
 require_relative '../../config'
 require_relative "../../pages/patientInfo"
-
 include RSpec::Expectations
 
 describe "Container Tests" do
-
   before(:all) do
     GeneralUtility.setConfig($config)
     @wait = GeneralUtility.wait
@@ -23,20 +21,11 @@ describe "Container Tests" do
     @login = ProviderLogin.new
     @search = Search.new    
     @mongo = MongoUtility.new  
-    @container = Container.new        
-    
+    @container = Container.new
     @mongo.removeCollection("contextCollection", "patientContext")    
 
     @login.loginAsCprs1234KeepPopupOpen()
   end
-
-  # before(:each) do
-  #   @driver.get($config[:baseUrl] + "/" + $config[:appRoot])
-  # end
-  #
-  # after(:all) do
-  #   @driver.quit
-  # end
 
   describe "No patient in context: PV-1532" do
     it 'should show No Patient in Context message if no patient in context' do    
@@ -74,7 +63,7 @@ describe "Container Tests" do
     it 'should display the patient info button for admitted patients: PV-1602' do      
       @search.updatePatientContextByName('ten, patient')
       
-      @wait.until {@eu.element_present?(:css, "#patient-context")}
+      @wait.until{@eu.element_present?(:css, "#patient-context")}
 
       expect(@eu.element_present?(:css, "#patient-context .icon-9")).to be true
       expect(@eu.get_element(:css, "#patient-status").text).to eq("H")
@@ -91,10 +80,10 @@ describe "Container Tests" do
         age -= 1
       end
 
-      @wait.until { @eu.element_present?(:css, "#patient-status") }
+      @wait.until{@eu.element_present?(:css, "#patient-status")}
       expect(@eu.element_present?(:css, "#patient-context .icon-9")).to be true
       expect(@eu.get_element(:css, "#patient-status").text).to eq("")
-      expect(@eu.get_element(:css, "#patient-context").text).to eq("TEN, OUTPATIENT\n03/09/1945 (#{+ age.to_s + }) M\n666-00-0610")
+      expect(@eu.get_element(:css, "#patient-context").text).to eq("TEN, OUTPATIENT\n03/09/1945 (#{age.to_s}) M\n666-00-0610")
     end
 
     it 'should display limited content in pop-up for outpatients: PV-1602' do      
@@ -126,7 +115,7 @@ describe "Container Tests" do
       @search.updatePatientContextByName('ten, inpatient')
 
       @wait.until{ @eu.element_present?(:css, '#patient-context .icon-9') }
-      @eu.get_element(:css, '#patient-context a').click
+      @eu.click(:css, '#patient-context a')
 
       @wait.until{ @eu.element_present?(:css, '#subject-info-window-popup.ui-popup-active') }
       info = PatientInfo.new
@@ -168,4 +157,4 @@ describe "Container Tests" do
       puts "    -redirects to Launchpad with AuthorizationServices 4.0.3"
     end
   end
-end  
+end

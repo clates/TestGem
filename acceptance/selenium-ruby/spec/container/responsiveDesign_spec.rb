@@ -9,7 +9,7 @@ require 'applet-test-helpers/pages/provider-login'
 require 'applet-test-helpers/mongo/mongo-utility'
 require 'search-page'
 require 'coversheet-page'
-require "./pages/responsiveDesign"
+require_relative "../../pages/responsiveDesign"
 require_relative '../../config'
 include RSpec::Expectations
 

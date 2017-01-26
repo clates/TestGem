@@ -18,12 +18,9 @@ describe "Session Timeout Handler" do
     @wait = GeneralUtility.wait
     @search = Search.new
     @container = Container.new
-    @orders = OrdersViewer.new
     @gu = GeneralUtility.new
     @eu = ElementUtility.new
-    @mongo = MongoUtility.new
-    @notes = ProgressNotes.new
-    login = ProviderLogin.new   
+    login = ProviderLogin.new
 
     login.loginAsCprs1234()
 	end

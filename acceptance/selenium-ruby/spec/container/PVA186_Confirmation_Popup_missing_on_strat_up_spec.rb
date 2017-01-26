@@ -11,7 +11,6 @@ require 'applet-test-helpers/mongo/mongo-utility'
 require 'search-page'
 require_relative '../../config'
 require_relative "../../pages/patientInfo"
-
 include RSpec::Expectations
 
 
